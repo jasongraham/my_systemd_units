@@ -1,0 +1,18 @@
+[Unit]
+Description=Postfix Greylisting Service
+Before=postfix.service
+
+[Service]
+Type=forking
+EnvironmentFile=-/etc/conf.d/postgrey
+ExecStartPre=-/bin/rm -f /var/run/postgrey/postgrey.pid
+PIDFile=/var/run/postgrey/postgrey.pid
+ExecStart=/usr/sbin/postgrey --daemonize ${POSTGREY_ADDR} \
+	--group=postgrey --user=postgrey ${POSTGREY_OPTS} --pidfile=/var/run/postgrey/postgrey.pid \
+	--greylist-text="${POSTGREY_TEXT}"
+
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target

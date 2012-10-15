@@ -1,0 +1,12 @@
+[Unit]
+Description=xboxdrv daemon
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/xboxdrv -D --dbus disabled -s --pid-file /var/run/xboxdrv.pid --trigger-as-button
+ExecStop=/bin/kill -15 $MAINPID
+PIDFile=/var/run/xboxdrv.pid
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
