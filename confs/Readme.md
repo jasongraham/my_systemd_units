@@ -1,1 +1,1 @@
-These files go into /etc/conf.d
+These files go into `/etc/conf.d`
